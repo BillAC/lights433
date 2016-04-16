@@ -319,6 +319,7 @@ time_t calc_sunriseset(int value)
   dt_sunset    = time(0);
   tm *sunrise  = localtime(&dt_sunrise);
   tm *sunset   = localtime(&dt_sunset);
+  int daylight_savings = sunset->tm_isdst;
 
   // set up the values for a function call to AstroCalc4R
   day   = sunset->tm_mday;        // day of month
@@ -332,13 +333,22 @@ time_t calc_sunriseset(int value)
   
   // Calculate the sunrise time
   sunrise->tm_hour = floor(astro_sunrise); 
+  if (daylight_savings == 1) {
+    sunrise->tm_hour += 1;
+  }
   sunrise->tm_min  = 60*(astro_sunrise-floor(astro_sunrise));
   dt_sunrise = std::mktime(sunrise);
 
   // Calculate the sunset time
   sunset->tm_hour = floor(astro_sunset); 
+  if (daylight_savings == 1) {
+    sunset->tm_hour  += 1;
+  }
   sunset->tm_min  = 60*(astro_sunset-floor(astro_sunset));
   dt_sunset = std::mktime(sunset);
+
+  // adust for daylight savings 
+
 
   // log the results
   struct tm *tml = localtime(&dt_sunrise);
