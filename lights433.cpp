@@ -67,6 +67,9 @@ int main(int argc, char *argv[]) {
   int status;               // flag to determine whether the time is within a range
   char buffer [CHARSIZE];   // character buffer for output
 
+  // Initialize wiringPi
+  int init_wiringPi();
+
   // Read the initialization file, named 
   read_ini_file("/etc/lights433.conf");
 
@@ -230,9 +233,9 @@ int switch_lights(int flag)
 }
 
 // **********************************************************************
-//      Function to send the 433MHz signal. Needs wiringPi library.
+//      Function to initialize the wiringPi library.
 // **********************************************************************
-int send_code(int code)
+int init_wiringPi(void)
 {  
   int ret = 0;
   char buffer [CHARSIZE];     // character buffer for output
@@ -242,6 +245,28 @@ int send_code(int code)
     #ifdef SEND
     ret = wiringPiSetup ();
     if (ret == -1) {throw -1;}
+    #endif /* SEND */
+    
+    return ret;
+  }
+  catch (int e) {
+    strcpy (buffer, "ERROR: initializing wiringPiSetup ()");
+    logthis(buffer);
+    std::cerr << currentDateTime() << ": Error initializing wiringPiSetup () " << endl;
+    std::exit(EXIT_FAILURE);
+  }
+}
+
+
+// **********************************************************************
+//      Function to send the 433MHz signal. Needs wiringPi library.
+// **********************************************************************
+int send_code(int code)
+{  
+  int ret = 0;
+  char buffer [CHARSIZE];     // character buffer for output
+    
+    #ifdef SEND
     RCSwitch mySwitch = RCSwitch();
     mySwitch.enableTransmit(PIN);
     mySwitch.send(code, 24);  
@@ -253,13 +278,7 @@ int send_code(int code)
     std::this_thread::sleep_for(std::chrono::milliseconds(DELAY));
     return ret;
   }
-  catch (int e) {
-    strcpy (buffer, "ERROR: initializing wiringPiSetup ()");
-    logthis(buffer);
-    std::cerr << currentDateTime() << ": Error initializing wiringPiSetup () " << endl;
-    std::exit(EXIT_FAILURE);
-  }
-}
+
  
 // **********************************************************************
 //      Function to determine the time to switch on the lights

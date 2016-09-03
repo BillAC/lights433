@@ -34,6 +34,7 @@ time_t calc_offtime( time_t );
 int time_in_range(time_t, time_t);
 int switch_lights( int );
 int send_code( int );
+int init_wiringPi(void);
 int daynumber( time_t ); 
 string currentDateTime(void);
 int logthis(string);
