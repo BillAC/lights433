@@ -1,7 +1,7 @@
 # definitions
 CFLAGS   = -lwiringPi -Wall 
 CXXFLAGS = -std=c++11  
-DEPS = RCSwitch.h AstroCalc4R.h lights433.h
+DEPS = ../rc-switch/RCSwitch.h AstroCalc4R.h lights433.h
 LIBS = -lm 
 CC = g++
 TS := $(shell /bin/date "+%Y-%m-%d-%H-%M-%S")
@@ -12,14 +12,14 @@ prefix=/usr/local
 
 all: lights433
 
-lights433: RCSwitch.o AstroCalc4R.o ini.o INIReader.o lights433.o
+lights433: ../433Utils/rc-switch/RCSwitch.o AstroCalc4R.o ini.o INIReader.o lights433.o
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $+ -o $@ $(CFLAGS) $(LIBS)
 	git status -s
 
 clean:
 	$(RM) *.o lights433
 
-test: ini.o INIReader.o test.o 
+test: ../433Utils/rc-switch/RCSwitch.o test.o 
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $+ -o $@ $(CFLAGS) $(LIBS)
 	git status -s
 

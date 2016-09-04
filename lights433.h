@@ -1,7 +1,8 @@
 /* 
 	lights433.h
 */
-#include "RCSwitch.h"
+#define RPI 1
+#include "../433Utils/rc-switch/RCSwitch.h"
 #include "INIReader.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -34,10 +35,9 @@ time_t calc_offtime( time_t );
 int time_in_range(time_t, time_t);
 int switch_lights( int );
 int send_code( int );
-int init_wiringPi(void);
 int daynumber( time_t ); 
-string currentDateTime(void);
-int logthis(string);
-int read_ini_file(string);
+std::string currentDateTime(void);
+int logthis(std::string);
+int read_ini_file(std::string);
 void AstroCalc4R(int *, int *, int *,int *,int *, double *,double *,double *, \
 				double *,double *,double *,double *,double *, double *,double *, double *, double *);

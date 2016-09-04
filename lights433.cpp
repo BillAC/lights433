@@ -58,6 +58,7 @@ int off_hour;   // Hour to switch off; hour (24 hour format)
 int off_min;    //                     min  (24 hour format)
 int off_ofset;  // Randomized offset (in minutes)
 
+
 // **********************************************************************
 //    main
 // **********************************************************************
@@ -67,18 +68,20 @@ int main(int argc, char *argv[]) {
   int status;               // flag to determine whether the time is within a range
   char buffer [CHARSIZE];   // character buffer for output
 
-  // Initialize wiringPi
-  int init_wiringPi();
-
-  // Read the initialization file, named 
-  read_ini_file("/etc/lights433.conf");
-
   // write to the log file that the program is starting 
   logthis("*******************************************");
   logthis("Starting program lights433 ....");
 
+  // Read the initialization file, named 
+  read_ini_file("/etc/lights433.conf");
+  logthis("- Reading the configuration file");
+
+  // Initialize wiringPi
+  wiringPiSetup ();
+  logthis("- Initializing the wiringPi library");
+
   // Switch off the lights 
-  logthis("Switching off the lights");
+  logthis("- Make sure that lights are off");
   switch_lights(LIGHTS_OFF);
   lights_are_on = false;
 
@@ -230,31 +233,6 @@ int switch_lights(int flag)
     i+=1;
   }
   return (ret);
-}
-
-// **********************************************************************
-//      Function to initialize the wiringPi library.
-// **********************************************************************
-int init_wiringPi(void)
-{  
-  int ret = 0;
-  char buffer [CHARSIZE];     // character buffer for output
-
-  try {
-    
-    #ifdef SEND
-    ret = wiringPiSetup ();
-    if (ret == -1) {throw -1;}
-    #endif /* SEND */
-    
-    return ret;
-  }
-  catch (int e) {
-    strcpy (buffer, "ERROR: initializing wiringPiSetup ()");
-    logthis(buffer);
-    std::cerr << currentDateTime() << ": Error initializing wiringPiSetup () " << endl;
-    std::exit(EXIT_FAILURE);
-  }
 }
 
 
