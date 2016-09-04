@@ -22,7 +22,7 @@ Sunset calculations are performed with the [AstroCalc4R library](http://www.nefs
 
 Required library: [WiringPi](https://projects.drogon.net/raspberry-pi/wiringpi/download-and-install/). Read about this [GPIO Interface library for the Raspberry Pi](http://wiringpi.com/download-and-install/) and get the code [here](git://git.drogon.net/wiringPi). Remember to link with flag: -lwiringPi. 
 
-We are using code from 'codesend' and 'RCSwitch', part of @ninjablocks [433Utils library](https://github.com/ninjablocks/433Utils). Files included here are: RCSwitch.cpp and RCSwitch.h
+We are using code from 'codesend' and 'RCSwitch', part of @ninjablocks [433Utils library](https://github.com/ninjablocks/433Utils). 
 
 We are also using [inih](https://github.com/benhoyt/inih) (INI Not Invented Here) from @benhoyt as the .INI file parser. Files included here are: INIReader.cpp, INIReader.h, ini.c and ini.h). 
 
