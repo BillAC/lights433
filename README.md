@@ -18,13 +18,17 @@ You need a 433MHz receiver/transmitter as described here (and many other places)
 Requirements and dependencies 
 -----------------------------
 
-Sunset calculations are performed with the [AstroCalc4R library](http://www.nefsc.noaa.gov/AstroCalc4R/). Files included here are: AstroCalc4R.c and myfuncs1.c
-
 Required library: [WiringPi](https://projects.drogon.net/raspberry-pi/wiringpi/download-and-install/). Read about this [GPIO Interface library for the Raspberry Pi](http://wiringpi.com/download-and-install/) and get the code [here](git://git.drogon.net/wiringPi). Remember to link with flag: -lwiringPi. 
 
-We are using code from 'codesend' and 'RCSwitch', part of @ninjablocks [433Utils library](https://github.com/ninjablocks/433Utils). 
+We are using the @ninjablocks [433Utils library](https://github.com/ninjablocks/433Utils). The directory structure is as follows (change the file locations in the Makefile and in lights433.h is yours is different):
 
-We are also using [inih](https://github.com/benhoyt/inih) (INI Not Invented Here) from @benhoyt as the .INI file parser. Files included here are: INIReader.cpp, INIReader.h, ini.c and ini.h). 
+	base directory
+ 		- 433Utils (subdirectory)
+ 		- lights433 (subdirectory for our code)
+
+As the .INI file parser, we are using [inih](https://github.com/benhoyt/inih) (INI Not Invented Here) from @benhoyt. Files included here are: INIReader.cpp, INIReader.h, ini.c and ini.h). 
+
+Sunset calculations are performed with the [AstroCalc4R library](http://www.nefsc.noaa.gov/AstroCalc4R/). Files included here are: AstroCalc4R.c and myfuncs1.c
 
 Installation steps:
 -------------------
